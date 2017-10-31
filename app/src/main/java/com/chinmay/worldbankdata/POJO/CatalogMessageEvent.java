@@ -1,9 +1,8 @@
 package com.chinmay.worldbankdata.POJO;
 
 /**
- * Created by hp on 9/9/17.
+ * Created by chinmaydeshpande on 30/10/17.
  */
-
 public class CatalogMessageEvent extends MessageEvent{
     public final Catalog response;
 

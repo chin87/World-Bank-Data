@@ -6,10 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Created by hp on 9/9/17.
+ * Created by chinmaydeshpande on 30/10/17.
  */
-
-
 public interface ApiService {
 
     @GET("datacatalog?format=json")

@@ -1,9 +1,8 @@
 package com.chinmay.worldbankdata.POJO;
 
 /**
- * Created by hp on 9/9/17.
+ * Created by chinmaydeshpande on 30/10/17.
  */
-
 public abstract class MessageEvent {
     public int status;
     public static final int SUCCESS = 0;

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<variable
+			name="story"
+			type="com.chinmay.worldbankdata.POJO.Datacatalog" />
+		<variable
+			name="callback"
+			type="com.chinmay.worldbankdata.UI.NewsAdapter"/>
+	</data>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorPrimary"
+		android:orientation="vertical"
+		android:paddingBottom="4dp"
+		android:paddingLeft="2dp"
+		android:paddingRight="2dp"
+		android:paddingTop="4dp"
+		android:onClick="@{() -> callback.itemCLicked(story)}"
+		android:clickable="true">
+
+		<TextView
+			android:id="@+id/item_id"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:text="@{story.getName()}"
+			android:textAppearance="@style/TextAppearance.AppCompat.Title"
+			tools:text="ID"
+			android:onClick="@{() -> callback.itemCLicked(story)}"
+			android:clickable="true" />
+
+		<TextView
+			android:id="@+id/item_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:textAppearance="@style/TextAppearance.AppCompat.Title"
+			tools:text="title"
+			android:onClick="@{() -> callback.itemCLicked(story)}"
+			android:clickable="true"
+			android:text="@{story.getType()}"/>
+		<!---->
+
+
+		<TextView
+			android:id="@+id/item_by"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="By"
+			android:onClick="@{() -> callback.itemCLicked(story)}"
+			android:clickable="true"
+			android:text="@{story.getDescription()}"/>
+			<!--android:text="@{story.by}"-->
+
+
+		<TextView
+			android:id="@+id/item_type"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="type"
+			android:onClick="@{() -> callback.itemCLicked(story)}"
+			android:clickable="true"
+			android:text="@{story.getCite()}"/>
+		<!--android:text="@{story.type}"-->
+
+		<TextView
+			android:id="@+id/item_date_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="12-7-2016"
+			android:onClick="@{() -> callback.itemCLicked(story)}"
+			android:clickable="true"
+			android:text="@{story.getDate()}"/>
+		<!--android:text="@{story.getFormattedDate()}"-->
+
+	</LinearLayout>
+</layout>
