@@ -1,4 +1,4 @@
-Switch to MVP branch to see code
+Switch to MVC branch to see code
 
 Problem statement:
 World Bank Data
