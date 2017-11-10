@@ -13,7 +13,9 @@
 			android:layout_height="48dp"
 			android:text="GET LATEST NEWS"
 			tools:layout_editor_absoluteX="110dp"
-			tools:layout_editor_absoluteY="2dp" />
+			tools:layout_editor_absoluteY="2dp"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="20dp"/>
 
 
 		<android.support.v7.widget.RecyclerView
@@ -29,6 +31,13 @@
 			android:layout_marginLeft="0dp"
 			android:layout_marginBottom="0dp"
 			/>
+
+		<ProgressBar
+			android:id="@+id/pb_data"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:visibility="gone"/>
 
 	</RelativeLayout>
 

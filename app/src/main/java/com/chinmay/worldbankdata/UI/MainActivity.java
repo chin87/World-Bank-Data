@@ -8,79 +8,48 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.chinmay.worldbankdata.POJO.CatalogMessageEvent;
 import com.chinmay.worldbankdata.POJO.Datacatalog;
 import com.chinmay.worldbankdata.R;
-import com.chinmay.worldbankdata.communication.WebCommunicator;
+import com.chinmay.worldbankdata.WorldBankDataContract;
 import com.chinmay.worldbankdata.databinding.ActivityMainBinding;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements NewsAdapter.IClick{
+public class MainActivity extends AppCompatActivity implements NewsAdapter.IClick, WorldBankDataContract.View{
 	private ActivityMainBinding activityMainHackerNewsBinding;
 	private NewsAdapter newsAdapter;
+	private DataCatalogPresenter dataCatalogPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		dataCatalogPresenter = new DataCatalogPresenter(this);
 		activityMainHackerNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		activityMainHackerNewsBinding.button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				getNewsList();
+				dataCatalogPresenter.loadDataCatlog();
 			}
 		});
 
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		EventBus.getDefault().register(this);
+	protected void onPause() {
+		super.onPause();
+		dataCatalogPresenter.viewPause();
 	}
 
 	@Override
-	public void onStop() {
-		super.onStop();
-		EventBus.getDefault().unregister(this);
+	protected void onResume() {
+		super.onResume();
+		dataCatalogPresenter.viewResume(this);
 	}
 
-	private void getNewsList(){
-		WebCommunicator.getAllCatalog();
-	}
-
-	// This method will be called when a MessageEvent is posted (in the UI thread for Toast)
-	@Subscribe(threadMode = ThreadMode.BACKGROUND)
-	public void onMessageEvent(CatalogMessageEvent event) {
-		if (event.isSuccess()) {
-			parseNewsData(new ArrayList<Datacatalog>(
-					Arrays.asList(event.response.getDatacatalog())
-			));
-		} else {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					failedListApi();
-				}
-			});
-		}
-	}
-
-	private void failedListApi(){
-		Toast.makeText(this, "FAILED TO FETCH NEWS", Toast.LENGTH_SHORT).show();
-	}
-
-	private void parseNewsData(ArrayList<Datacatalog> response){
-		if(response == null || response.size() == 0){
-			return;
-		}
-		runOnUiThread(new UIRunnable(response));
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dataCatalogPresenter.viewDestroy();
 	}
 
 	@Override
@@ -90,6 +59,35 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 		startActivity(intent);
 	}
 
+	@Override
+	public void showDataCatlog(ArrayList<Datacatalog> datacatalogArrayList) {
+		runOnUiThread(new UIRunnable(datacatalogArrayList));
+	}
+
+	@Override
+	public void showMessage(String message) {
+		runOnUiThread(new UIMessageRunnable(message));
+	}
+
+	@Override
+	public void showProgressBar() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				activityMainHackerNewsBinding.pbData.setVisibility(View.VISIBLE);
+			}
+		});
+	}
+
+	@Override
+	public void removeProgressBar() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				activityMainHackerNewsBinding.pbData.setVisibility(View.GONE);
+			}
+		});
+	}
 
 	private class UIRunnable implements Runnable{
 		private ArrayList<Datacatalog> stories;
@@ -113,4 +111,15 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 		activityMainHackerNewsBinding.rvNewsList.setAdapter(newsAdapter);
 	}
 
+	private class UIMessageRunnable implements Runnable{
+		private String message;
+		public UIMessageRunnable(String message){
+			this.message = message;
+		}
+
+		@Override
+		public void run() {
+			Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+		}
+	}
 }
