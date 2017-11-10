@@ -1,17 +1,16 @@
-World Bank Data
-Create a Native Android app that cosumes and presents data from the World Bank Open Data API (http://data.worldbank.org/).
+## Following branch follows MVC architecture pattern 
+### It uses following components: 
+ 1. Retrofit: for communication
+ 2. Eventbus: for event handling
+ 3. Databinding: android databinding for binding views 
+ 
+activity_main.xml is view
+MainActivity is Controller: 
+ -- It has a button to fetch latest data from worldbank.org api's
+ -- calls WebCommunicator class for communication to fetch data
+ -- contains business logic for parsing and communicating data to View
+ 
+Model class: 
+WebCommunicator can be considered as model class
 
-For this task you are expected to consume the Data Catalog API :
-https://datahelpdesk.worldbank.org/knowledgebase/articles/902049-data-catalog-api
-
-What you do with the data is up to you, be creative.
-You are free to use any external libraries you feel like.
-
-Host your code on a public git repository e.g github.com or bitbucket.com
-Your code must be able to build and run on an Android device.
-
-Extra points:
-1. Use the MVP design pattern
-2. Write unit tests
-3. Have test code coverage of atleast 70%
-4. Integrate Jacoco code coverage tool
+###To see problem statement please check master branch.
