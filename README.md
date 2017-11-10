@@ -1,7 +1,7 @@
-Switch to MVC branch to see code
+## Switch to : MVC or MVP branch to see respective code
 
-Problem statement:
-World Bank Data
+### Problem statement:
+### World Bank Data
 Create a Native Android app that cosumes and presents data from the World Bank Open Data API (http://data.worldbank.org/).
 
 For this task you are expected to consume the Data Catalog API :
