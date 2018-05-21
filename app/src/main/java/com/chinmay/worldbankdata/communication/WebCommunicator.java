@@ -1,8 +1,8 @@
 package com.chinmay.worldbankdata.communication;
 
-import com.chinmay.worldbankdata.POJO.Catalog;
-import com.chinmay.worldbankdata.POJO.CatalogMessageEvent;
-import com.chinmay.worldbankdata.POJO.MessageEvent;
+import com.chinmay.worldbankdata.pojo.Catalog;
+import com.chinmay.worldbankdata.pojo.CatalogMessageEvent;
+import com.chinmay.worldbankdata.pojo.MessageEvent;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;

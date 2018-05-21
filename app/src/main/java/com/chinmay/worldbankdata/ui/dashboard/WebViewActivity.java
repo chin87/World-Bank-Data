@@ -1,4 +1,4 @@
-package com.chinmay.worldbankdata.UI;
+package com.chinmay.worldbankdata.ui.dashboard;
 
 import android.app.Activity;
 import android.os.Bundle;

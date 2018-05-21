@@ -1,6 +1,8 @@
-package com.chinmay.worldbankdata;
+package com.chinmay.worldbankdata.ui.dashboard;
 
-import com.chinmay.worldbankdata.POJO.Datacatalog;
+import com.chinmay.worldbankdata.base.activity.BaseView;
+import com.chinmay.worldbankdata.base.presenter.BasePresenter;
+import com.chinmay.worldbankdata.pojo.Datacatalog;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class WorldBankDataContract {
 
-        public interface View {
+        public interface View extends BaseView {
 
             void showDataCatlog(ArrayList<Datacatalog> datacatalogArrayList);
 
@@ -21,7 +23,7 @@ public class WorldBankDataContract {
             void removeProgressBar();
         }
 
-        public interface Actions {
+        public interface Presenter extends BasePresenter<View> {
             void loadDataCatlog();
 
             void viewDestroy();

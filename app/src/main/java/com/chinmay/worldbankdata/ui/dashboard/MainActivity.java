@@ -1,34 +1,33 @@
-package com.chinmay.worldbankdata.UI;
+package com.chinmay.worldbankdata.ui.dashboard;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.chinmay.worldbankdata.POJO.Datacatalog;
 import com.chinmay.worldbankdata.R;
-import com.chinmay.worldbankdata.WorldBankDataContract;
+import com.chinmay.worldbankdata.base.activity.AbstractBaseActivityImpl;
 import com.chinmay.worldbankdata.databinding.ActivityMainBinding;
+import com.chinmay.worldbankdata.pojo.Datacatalog;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NewsAdapter.IClick, WorldBankDataContract.View{
+public class MainActivity extends
+		AbstractBaseActivityImpl<WorldBankDataContract.View, WorldBankDataContract.Presenter>
+		implements NewsAdapter.IClick, WorldBankDataContract.View, IRunonUi<Datacatalog>, IShowToast<String>{
 	private ActivityMainBinding activityMainHackerNewsBinding;
 	private NewsAdapter newsAdapter;
-	private DataCatalogPresenter dataCatalogPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dataCatalogPresenter = new DataCatalogPresenter(this);
 		activityMainHackerNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		activityMainHackerNewsBinding.button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				dataCatalogPresenter.loadDataCatlog();
+				getPresenter().loadDataCatlog();
 			}
 		});
 
@@ -37,19 +36,19 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 	@Override
 	protected void onPause() {
 		super.onPause();
-		dataCatalogPresenter.viewPause();
+		getPresenter().viewPause();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		dataCatalogPresenter.viewResume(this);
+		getPresenter().viewResume(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		dataCatalogPresenter.viewDestroy();
+		getPresenter().viewDestroy();
 	}
 
 	@Override
@@ -61,12 +60,12 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 
 	@Override
 	public void showDataCatlog(ArrayList<Datacatalog> datacatalogArrayList) {
-		runOnUiThread(new UIRunnable(datacatalogArrayList));
+		runOnUiThread(new UIRunnable<>(datacatalogArrayList, this));
 	}
 
 	@Override
 	public void showMessage(String message) {
-		runOnUiThread(new UIMessageRunnable(message));
+		runOnUiThread(new UIMessageRunnable<>(message, this));
 	}
 
 	@Override
@@ -89,16 +88,9 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 		});
 	}
 
-	private class UIRunnable implements Runnable{
-		private ArrayList<Datacatalog> stories;
-		public UIRunnable(ArrayList<Datacatalog> stories){
-			this.stories = stories;
-		}
-
-		@Override
-		public void run() {
-			setNewsAdapter(stories);
-		}
+	@Override
+	public void runOnUi(ArrayList<Datacatalog> list) {
+		setNewsAdapter(list);
 	}
 
 	private void setNewsAdapter( ArrayList<Datacatalog> stories ){
@@ -111,15 +103,13 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.IClic
 		activityMainHackerNewsBinding.rvNewsList.setAdapter(newsAdapter);
 	}
 
-	private class UIMessageRunnable implements Runnable{
-		private String message;
-		public UIMessageRunnable(String message){
-			this.message = message;
-		}
+	@Override
+	protected WorldBankDataContract.Presenter createPresenter() {
+		return new DataCatalogPresenter(this);
+	}
 
-		@Override
-		public void run() {
-			Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-		}
+	@Override
+	public void toastMessage(String message) {
+		Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
 	}
 }

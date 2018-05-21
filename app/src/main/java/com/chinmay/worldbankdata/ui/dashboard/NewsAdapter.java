@@ -1,4 +1,4 @@
-package com.chinmay.worldbankdata.UI;
+package com.chinmay.worldbankdata.ui.dashboard;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chinmay.worldbankdata.BR;
-import com.chinmay.worldbankdata.POJO.Datacatalog;
 import com.chinmay.worldbankdata.R;
+import com.chinmay.worldbankdata.pojo.Datacatalog;
 
 import java.util.ArrayList;
 

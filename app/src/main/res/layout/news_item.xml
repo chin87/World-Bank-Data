@@ -5,10 +5,10 @@
 	<data>
 		<variable
 			name="story"
-			type="com.chinmay.worldbankdata.POJO.Datacatalog" />
+			type="com.chinmay.worldbankdata.pojo.Datacatalog" />
 		<variable
 			name="callback"
-			type="com.chinmay.worldbankdata.UI.NewsAdapter"/>
+			type="com.chinmay.worldbankdata.ui.dashboard.NewsAdapter"/>
 	</data>
 
 	<LinearLayout

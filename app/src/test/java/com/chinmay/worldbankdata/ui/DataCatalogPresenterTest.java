@@ -1,30 +1,22 @@
-package com.chinmay.worldbankdata.UI;
+package com.chinmay.worldbankdata.ui;
 
-import com.chinmay.worldbankdata.POJO.Datacatalog;
-import com.chinmay.worldbankdata.WorldBankDataContract;
+import com.chinmay.worldbankdata.pojo.Datacatalog;
+import com.chinmay.worldbankdata.ui.dashboard.DataCatalogPresenter;
+import com.chinmay.worldbankdata.ui.dashboard.WorldBankDataContract;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
-import org.mockito.internal.matchers.Null;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.anyListOf;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
- * Created by chinmay.deshpande on 13/11/17.
+ * Created by chinmay.deshpande on 17/05/18.
  */
 public class DataCatalogPresenterTest {
 

@@ -1,4 +1,4 @@
-package com.chinmay.worldbankdata.POJO;
+package com.chinmay.worldbankdata.pojo;
 
 /**
  * Created by chinmaydeshpande on 30/10/17.

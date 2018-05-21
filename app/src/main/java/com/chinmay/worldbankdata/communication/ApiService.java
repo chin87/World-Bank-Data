@@ -1,6 +1,6 @@
 package com.chinmay.worldbankdata.communication;
 
-import com.chinmay.worldbankdata.POJO.Catalog;
+import com.chinmay.worldbankdata.pojo.Catalog;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

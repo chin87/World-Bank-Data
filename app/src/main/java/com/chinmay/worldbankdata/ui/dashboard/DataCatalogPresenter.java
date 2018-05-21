@@ -1,9 +1,9 @@
-package com.chinmay.worldbankdata.UI;
+package com.chinmay.worldbankdata.ui.dashboard;
 
-import com.chinmay.worldbankdata.POJO.CatalogMessageEvent;
-import com.chinmay.worldbankdata.POJO.Datacatalog;
-import com.chinmay.worldbankdata.WorldBankDataContract;
+import com.chinmay.worldbankdata.base.presenter.AbstractBasePresenterImpl;
 import com.chinmay.worldbankdata.communication.WebCommunicator;
+import com.chinmay.worldbankdata.pojo.CatalogMessageEvent;
+import com.chinmay.worldbankdata.pojo.Datacatalog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,11 +16,14 @@ import java.util.Arrays;
  * Created by chinmay.deshpande on 10/11/17.
  */
 
-public class DataCatalogPresenter implements WorldBankDataContract.Actions {
+public class DataCatalogPresenter extends
+        AbstractBasePresenterImpl<WorldBankDataContract.View>
+        implements WorldBankDataContract.Presenter {
 
     private WorldBankDataContract.View dataCatlogView;
 
     public DataCatalogPresenter(WorldBankDataContract.View view){
+        super(view);
         dataCatlogView = view;
         onStart();
     }
